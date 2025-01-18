@@ -5,26 +5,17 @@ const App = () => {
     { name: 'Arto Hellas' }
   ]) 
   const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState()
 
-  //Handle input field change
   const handleInputChange = (event) => {
     setNewName(event.target.value)
   }
 
-  //Handle form submission
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    if (newName.trim() === '') return;
 
-    if (persons.some((person) => person.name.toLowerCase() === newName.toLowerCase())) {
-      alert(`${newName} already exists`)
-      setNewName('')
-      return;
-    }
-    else{
-    setPersons([...persons, {name: newName}])
+    setPersons([...persons, {name : newName}])
     setNewName('')
-    }
   }
 
   return (
@@ -32,22 +23,19 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          name: <input value={newName} type="text" onChange={handleInputChange}/>
-        </div>
-        <div>
-          number: <input value={newNumber} type="number" />
+          name: <input value={newName} onChange={handleInputChange} />
         </div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
+      <div>debug: {newName}</div>
       <ul>
         {persons.map((person, index) => (
           <li key={index}>{person.name}</li>
         ))}
       </ul>
-      <div>debug: {newName}</div>
     </div>
   )
 }
