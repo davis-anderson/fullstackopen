@@ -13,6 +13,11 @@ const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newName.trim() === '') return;
+    if (persons.some(person => person.name.toLowerCase() === newName.toLowerCase())) {
+      alert('Name already exists');
+      setNewName('');
+      return;
+    }
 
     setPersons([...persons, {name : newName}])
     setNewName('')
